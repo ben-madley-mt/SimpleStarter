@@ -1,12 +1,12 @@
 const logger = require('koa-logger');
-const cardRouter = require('./routes/cardKoa');
-const indexRouter = require('./routes/indexKoa');
+const cardRouter = require('./routes/card');
+const indexRouter = require('./routes/index');
 const router = require('@koa/router')();
 const { koaBody } = require('koa-body');
 
-const Koa = require('koa');
+const App = require('koa');
 
-const app = module.exports = new Koa();
+const app = module.exports = new App();
 
 // middleware
 
