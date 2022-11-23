@@ -1,14 +1,16 @@
 const axios = require('axios')
-const {createNewCard, updateCard, getCard, deleteCard} = require("./client/client");
+const {CardClient} = require("./client/client");
 
 const doACard = async () => {
-    const id = await createNewCard('title', 'body')
+    const client = new CardClient()
+
+    const id = await client.createNewCard('title', 'body')
     console.log('id', id)
-    const successUpdate = await updateCard(id, 'newtitle', 'newbody')
+    const successUpdate = await client.updateCard(id, 'newtitle', 'newbody')
     console.log('successUpdate', successUpdate)
-    const cardData = await getCard(id)
+    const cardData = await client.getCard(id)
     console.log('cardData', cardData)
-    const successDelete = await deleteCard(id)
+    const successDelete = await client.deleteCard(id)
     console.log('successDelete', successDelete)
 }
 
