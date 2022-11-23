@@ -20,7 +20,7 @@ router.get('/:id', function (req, res, next) {
             from card
             where rowid = ${req.params.id}`,
         (_err, row) => {
-            res.send(JSON.stringify(row));
+            res.json(row);
         }
     )
 });
@@ -33,7 +33,7 @@ router.post('/', function (req, res, next) {
                 console.log(err)
                 res.send(err);
             } else {
-                res.send(JSON.stringify({id: this.lastID}));
+                res.json({id: this.lastID});
             }
         }
     )
@@ -47,7 +47,7 @@ router.put('/:id', function (req, res, next) {
                 console.log(err)
                 res.send(err);
             } else {
-                res.send(JSON.stringify({changes: this.changes}));
+                res.json({changes: this.changes});
             }
         }
     )
@@ -60,7 +60,7 @@ router.delete('/:id', function (req, res, next) {
                 console.log(err)
                 res.send(err);
             } else {
-                res.send(JSON.stringify({changes: this.changes}));
+                res.json({changes: this.changes});
             }
         }
     )
