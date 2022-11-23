@@ -8,23 +8,43 @@ class CardClient {
     }
 
     async createNewCard(title, body) {
-        const response = await axios.post(`${this.url}/card`, {title: title, body: body})
-        return response.data.id
+        try {
+            const response = await axios.post(`${this.url}/card`, {title: title, body: body})
+            return response.data.id
+        } catch (e){
+            return false
+        }
+
     }
 
     async updateCard(id, title, body) {
-        const response = await axios.put(`${this.url}/card/${id}`, {title: title, body: body})
-        return response.data.changes > 0
+        try {
+            const response = await axios.put(`${this.url}/card/${id}`, {title: title, body: body})
+            return response.data.changes > 0
+        } catch (e){
+            return false
+        }
+
     }
 
     async getCard(id) {
-        const response = await axios.get(`${this.url}/card/${id}`)
-        return response.data
+        try {
+            const response = await axios.get(`${this.url}/card/${id}`)
+            return response.data
+        } catch (e){
+            return false
+        }
+
     }
 
     async deleteCard(id) {
-        const response = await axios.delete(`${this.url}/card/${id}`)
-        return response.data.changes > 0
+        try {
+            const response = await axios.delete(`${this.url}/card/${id}`)
+            return response.data.changes > 0
+        } catch (e){
+            return false
+        }
+
     }
 }
 
