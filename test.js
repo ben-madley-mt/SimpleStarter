@@ -1,6 +1,11 @@
 const axios = require('axios')
 const {CardClient} = require("./client/client");
 
+// 1. Tracking stats
+// 2. Run indefinitely
+// 3. Can specify how many workers
+// 4. Does random sleeps between steps
+
 const doACard = async () => {
     const client = new CardClient()
 
