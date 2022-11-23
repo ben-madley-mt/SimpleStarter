@@ -6,12 +6,16 @@
     "start": "node ./server/bin/www"
   },
   "dependencies": {
+    "@koa/router": "^10.1.1",
     "axios": "^1.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "koa": "^2.13.4",
+    "koa-body": "^6.0.1",
+    "koa-logger": "^3.2.1",
     "morgan": "~1.9.1",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.0.2"
