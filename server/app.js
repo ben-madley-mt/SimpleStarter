@@ -19,4 +19,5 @@ router.use('/card', cardRouter.routes(), cardRouter.allowedMethods());
 // route definitions
 app.use(router.routes());
 
+console.log("Starting server")
 if (!module.parent) app.listen(3000);
