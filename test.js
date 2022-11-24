@@ -7,7 +7,12 @@ const {CardClient} = require("./client/client");
 // 4. Does random sleeps between steps
 
 function debugLog() {
-    // console.log(...arguments)
+    console.log(...arguments)
+}
+
+function randomSleep() {
+    const ms = Math.ceil(Math.random() * 4000)
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const stats = {
@@ -20,6 +25,7 @@ const stats = {
 const doACard = async () => {
     const client = new CardClient()
 
+    await randomSleep()
     const id = await client.createNewCard('title', 'body')
     debugLog('id', id)
     if (id) {
@@ -28,6 +34,7 @@ const doACard = async () => {
         stats.create.failure++
     }
 
+    await randomSleep()
     const successUpdate = await client.updateCard(id, 'newtitle', 'newbody')
     debugLog('successUpdate', successUpdate)
     if (successUpdate) {
@@ -36,6 +43,7 @@ const doACard = async () => {
         stats.update.failure++
     }
 
+    await randomSleep()
     const cardData = await client.getCard(id)
     debugLog('cardData', cardData)
     if (cardData.title && cardData.body) {
@@ -44,6 +52,7 @@ const doACard = async () => {
         stats.read.failure++
     }
 
+    await randomSleep()
     const successDelete = await client.deleteCard(id)
     debugLog('successDelete', successDelete)
     if (successDelete) {
