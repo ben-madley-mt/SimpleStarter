@@ -54,6 +54,7 @@ const doACard = async () => {
 }
 
 const reportStats = () => {
+    console.clear()
     for (let operation in stats) {
         const totalAttempts = stats[operation].success + stats[operation].failure;
         const successRate = stats[operation].success / totalAttempts
@@ -62,7 +63,11 @@ const reportStats = () => {
     }
 };
 
+const oneWorker = async () => {
+    while(true) {
+        await doACard()
+        await reportStats()
+    }
+}
 
-doACard().then(()=> {
-    reportStats()
-})
+oneWorker()
