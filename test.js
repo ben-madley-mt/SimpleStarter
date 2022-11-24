@@ -6,6 +6,10 @@ const {CardClient} = require("./client/client");
 // 3. Can specify how many workers
 // 4. Does random sleeps between steps
 
+function debugLog() {
+    // console.log(...arguments)
+}
+
 const stats = {
     'create': { success: 0, failure: 0},
     'read': { success: 0, failure: 0},
@@ -17,7 +21,7 @@ const doACard = async () => {
     const client = new CardClient()
 
     const id = await client.createNewCard('title', 'body')
-    console.log('id', id)
+    debugLog('id', id)
     if (id) {
         stats.create.success++
     } else {
@@ -25,7 +29,7 @@ const doACard = async () => {
     }
 
     const successUpdate = await client.updateCard(id, 'newtitle', 'newbody')
-    console.log('successUpdate', successUpdate)
+    debugLog('successUpdate', successUpdate)
     if (successUpdate) {
         stats.update.success++
     } else {
@@ -33,7 +37,7 @@ const doACard = async () => {
     }
 
     const cardData = await client.getCard(id)
-    console.log('cardData', cardData)
+    debugLog('cardData', cardData)
     if (cardData.title && cardData.body) {
         stats.read.success++
     } else {
@@ -41,7 +45,7 @@ const doACard = async () => {
     }
 
     const successDelete = await client.deleteCard(id)
-    console.log('successDelete', successDelete)
+    debugLog('successDelete', successDelete)
     if (successDelete) {
         stats.delete.success++
     } else {
