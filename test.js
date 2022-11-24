@@ -2,8 +2,8 @@ const {CardClient} = require("./client/client");
 const { ArgumentParser } = require('argparse');
 const { version } = require('./package.json');
 
-function debugLog() {
-    // console.log(...arguments)
+function debugLog(...args) {
+    // console.log(...args)
 }
 
 function randomSleep(delay) {
