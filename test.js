@@ -51,9 +51,10 @@ const doACard = async () => {
 
 const reportStats = () => {
     for (let operation in stats) {
-        const successRate = stats[operation].success / (stats[operation].success + stats[operation].failure)
+        const totalAttempts = stats[operation].success + stats[operation].failure;
+        const successRate = stats[operation].success / totalAttempts
         const successPercent = (100 * successRate).toFixed(1) + '%'
-        console.log(`${operation}\t${successPercent} success rate`)
+        console.log(`${operation}\t${totalAttempts} attempts\t${successPercent} success rate`)
     }
 };
 
