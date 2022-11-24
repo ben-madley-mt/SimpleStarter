@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./server/app.js",
-    "test": "node ./test.js"
+    "test": "node ./test.js -w 10 -d 4"
   },
   "dependencies": {
     "@koa/router": "^10.1.1",
+    "argparse": "^2.0.1",
     "axios": "^1.2.0",
     "koa": "^2.13.4",
     "koa-body": "^6.0.1",

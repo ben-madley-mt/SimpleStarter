@@ -1,5 +1,6 @@
-const axios = require('axios')
 const {CardClient} = require("./client/client");
+const { ArgumentParser } = require('argparse');
+const { version } = require('./package.json');
 
 // 1. Tracking stats
 // 2. Run indefinitely
@@ -10,8 +11,8 @@ function debugLog() {
     console.log(...arguments)
 }
 
-function randomSleep() {
-    const ms = Math.ceil(Math.random() * 4000)
+function randomSleep(delay) {
+    const ms = Math.ceil(Math.random() * delay * 1000)
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -22,10 +23,10 @@ const stats = {
     'delete': { success: 0, failure: 0},
 }
 
-const doACard = async () => {
+const doACard = async (delay) => {
     const client = new CardClient()
 
-    await randomSleep()
+    await randomSleep(delay)
     const id = await client.createNewCard('title', 'body')
     debugLog('id', id)
     if (id) {
@@ -34,7 +35,7 @@ const doACard = async () => {
         stats.create.failure++
     }
 
-    await randomSleep()
+    await randomSleep(delay)
     const successUpdate = await client.updateCard(id, 'newtitle', 'newbody')
     debugLog('successUpdate', successUpdate)
     if (successUpdate) {
@@ -43,7 +44,7 @@ const doACard = async () => {
         stats.update.failure++
     }
 
-    await randomSleep()
+    await randomSleep(delay)
     const cardData = await client.getCard(id)
     debugLog('cardData', cardData)
     if (cardData.title && cardData.body) {
@@ -52,7 +53,7 @@ const doACard = async () => {
         stats.read.failure++
     }
 
-    await randomSleep()
+    await randomSleep(delay)
     const successDelete = await client.deleteCard(id)
     debugLog('successDelete', successDelete)
     if (successDelete) {
@@ -72,11 +73,23 @@ const reportStats = () => {
     }
 };
 
-const oneWorker = async () => {
+const oneWorker = async (delay) => {
     while(true) {
-        await doACard()
+        await doACard(delay)
         await reportStats()
     }
 }
 
-oneWorker()
+
+const parser = new ArgumentParser({
+    description: 'Test your migration skills'
+});
+
+parser.add_argument('-w', '--workers', { help: 'number of concurrent workers to run', default: 1 });
+parser.add_argument('-d', '--delay', { help: 'max length of a delay between steps in seconds', default: 1 });
+
+const {workers, delay} = parser.parse_args()
+
+for (let i = 0; i < workers; i++) {
+    oneWorker(delay)
+}
