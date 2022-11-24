@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/app.js"
+    "start": "node ./server/app.js",
+    "test": "node ./test.js"
   },
   "dependencies": {
     "@koa/router": "^10.1.1",
