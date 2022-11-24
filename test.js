@@ -2,13 +2,8 @@ const {CardClient} = require("./client/client");
 const { ArgumentParser } = require('argparse');
 const { version } = require('./package.json');
 
-// 1. Tracking stats
-// 2. Run indefinitely
-// 3. Can specify how many workers
-// 4. Does random sleeps between steps
-
 function debugLog() {
-    console.log(...arguments)
+    // console.log(...arguments)
 }
 
 function randomSleep(delay) {
