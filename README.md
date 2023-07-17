@@ -20,6 +20,6 @@ This file will repeatedly call the server via the client, and then report stats 
 
 Install with `npm install`, start the server in one terminal with `npm run start`, and start the test script with `npm run test` or `node ./test.js -w <number of workers> -d <max delay>`.
 
-Now try and either refactor the code, or migrate the database, with as little downtime as possible. Everytime you save, the new code will start working immediately! (TODO: Add scripts to manually deploy the client and server to allow control of the deploys).
+Now try and either refactor the code, or migrate the database, with as little downtime as possible. **Do not stop the server or the test.** Deploy new versions of the server with `npm run deploy-server`, and new versions of the client with `npm run deploy-client`. This will copy them into the `LIVE` server where the server and test script run from.
 
 Access the database with `sqlite3 test.sqlite`. The only table is the `card` table.

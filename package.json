@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/nodemon ./server/app.js",
-    "test": "node ./test.js -w 10 -d 4"
+    "start": "npm run deploy-server && node_modules/.bin/nodemon ./LIVE/server/app.js",
+    "test": "npm run deploy-client && node ./test.js -w 10 -d 4",
+    "deploy-all": "npm run deploy-server && npm run deploy-client",
+    "deploy-server": "cp -r server LIVE/server",
+    "deploy-client": "cp -r client LIVE/client"
   },
   "dependencies": {
     "@koa/router": "^10.1.1",

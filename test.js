@@ -1,4 +1,4 @@
-const {CardClient} = require("./client/client");
+const {CardClient} = require("./LIVE/client/client");
 const { ArgumentParser } = require('argparse');
 const { version } = require('./package.json');
 
