@@ -72,6 +72,8 @@ const reportStats = () => {
         printLine(operation, counts[operation].success, counts[operation].failure);
     }
 
+    console.log('--------------------------------------------------------')
+
     const totalSuccesses = Object.values(counts).reduce((acc, cur) => acc + cur.success, 0)
     const totalFailures = Object.values(counts).reduce((acc, cur) => acc + cur.failure, 0)
     printLine("total", totalSuccesses, totalFailures);
