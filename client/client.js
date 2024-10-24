@@ -29,32 +29,21 @@ class CardClient {
     }
 
     async updateCard(id, title, body) {
-        try {
-            const response = await axios.put(`${this.url}/card/${id}`, {title: title, body: body})
-            return response.data.changes > 0
-        } catch (e) {
-            return false
-        }
-
+        const response = await this.retry(async () => await axios.put(`${this.url}/card/${id}`, {
+            title: title,
+            body: body
+        }))
+        return response.data.changes > 0
     }
 
     async getCard(id) {
-        try {
-            const response = await axios.get(`${this.url}/card/${id}`)
-            return response.data
-        } catch (e) {
-            return false
-        }
+        const response = await this.retry(async () => await axios.get(`${this.url}/card/${id}`))
+        return response.data
     }
 
     async deleteCard(id) {
-        try {
-            const response = await axios.delete(`${this.url}/card/${id}`)
-            return response.data.changes > 0
-        } catch (e) {
-            return false
-        }
-
+        const response = await this.retry(async () => await axios.delete(`${this.url}/card/${id}`))
+        return response.data.changes > 0
     }
 }
 
