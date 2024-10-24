@@ -1,5 +1,10 @@
 const axios = require('axios')
 
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
 class CardClient {
     url;
 
@@ -7,13 +12,26 @@ class CardClient {
         this.url = url;
     }
 
-    async createNewCard(title, body) {
-        try {
-            const response = await axios.post(`${this.url}/card`, {title: title, body: body})
-            return response.data.id
-        } catch (e){
-            return false
+    async wrap_single_retry(f) {
+        for (let i = 0; i < 5; i++) {
+            let x = f()
+            if (!!x) {
+                return x
+            }
+            await sleep(1000)
         }
+    }
+
+    async createNewCard(title, body) {
+        return await this.wrap_single_retry(async function () {
+                try {
+                    const response = await axios.post(`${this.url}/card`, {title: title, body: body})
+                    return response.data.id
+                } catch (e) {
+                    return false
+                }
+            }
+        )
 
     }
 
@@ -21,7 +39,7 @@ class CardClient {
         try {
             const response = await axios.put(`${this.url}/card/${id}`, {title: title, body: body})
             return response.data.changes > 0
-        } catch (e){
+        } catch (e) {
             return false
         }
 
@@ -31,7 +49,7 @@ class CardClient {
         try {
             const response = await axios.get(`${this.url}/card/${id}`)
             return response.data
-        } catch (e){
+        } catch (e) {
             return false
         }
 
@@ -41,7 +59,7 @@ class CardClient {
         try {
             const response = await axios.delete(`${this.url}/card/${id}`)
             return response.data.changes > 0
-        } catch (e){
+        } catch (e) {
             return false
         }
 
