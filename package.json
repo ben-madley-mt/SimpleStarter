@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run deploy-all && node_modules/.bin/nodemon --watch ./LIVE/server/app.js  ./LIVE/server/app.js",
+    "start": "npm run deploy-all && node_modules/.bin/nodemon --watch ./LIVE/server  ./LIVE/server/app.js",
     "test": "node ./test.js -w 10 -d 4",
     "deploy-all": "npm run deploy-server && npm run deploy-client",
     "deploy-server": "cp -r server LIVE/server",
