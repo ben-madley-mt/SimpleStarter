@@ -13,7 +13,7 @@ class CardClient {
     }
 
     async retry(f) {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             try {
                 return await f()
             } catch (e) {
