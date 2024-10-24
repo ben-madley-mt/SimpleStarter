@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run deploy-all && node_modules/.bin/nodemon ./LIVE/server/app.js",
+    "start": "npm run deploy-all && node_modules/.bin/nodemon --watch ./LIVE/server/app.js  ./LIVE/server/app.js",
     "test": "node ./test.js -w 10 -d 4",
     "deploy-all": "npm run deploy-server && npm run deploy-client",
     "deploy-server": "cp -r server LIVE/server",
@@ -12,7 +12,7 @@
   "dependencies": {
     "@koa/router": "^10.1.1",
     "argparse": "^2.0.1",
-    "axios": "^1.2.0",
+    "axios": "1.7.4",
     "koa": "^2.13.4",
     "koa-body": "^6.0.1",
     "koa-logger": "^3.2.1",
