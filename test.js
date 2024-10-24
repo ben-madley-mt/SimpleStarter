@@ -11,7 +11,7 @@ function randomSleep(delay) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const stats = {
+const counts = {
     'create': { success: 0, failure: 0},
     'read': { success: 0, failure: 0},
     'update': { success: 0, failure: 0},
@@ -25,47 +25,59 @@ const doACard = async (delay) => {
     const id = await client.createNewCard('title', 'body')
     debugLog('id', id)
     if (id) {
-        stats.create.success++
+        counts.create.success++
     } else {
-        stats.create.failure++
+        counts.create.failure++
     }
 
     await randomSleep(delay)
     const successUpdate = await client.updateCard(id, 'newtitle', 'newbody')
     debugLog('successUpdate', successUpdate)
     if (successUpdate) {
-        stats.update.success++
+        counts.update.success++
     } else {
-        stats.update.failure++
+        counts.update.failure++
     }
 
     await randomSleep(delay)
     const cardData = await client.getCard(id)
     debugLog('cardData', cardData)
     if (cardData.title && cardData.body) {
-        stats.read.success++
+        counts.read.success++
     } else {
-        stats.read.failure++
+        counts.read.failure++
     }
 
     await randomSleep(delay)
     const successDelete = await client.deleteCard(id)
     debugLog('successDelete', successDelete)
     if (successDelete) {
-        stats.delete.success++
+        counts.delete.success++
     } else {
-        stats.delete.failure++
+        counts.delete.failure++
     }
 }
 
 const reportStats = () => {
     console.clear()
-    for (let operation in stats) {
-        const totalAttempts = stats[operation].success + stats[operation].failure;
-        const successRate = stats[operation].success / totalAttempts
+
+    function printLine(operation, successes, failures) {
+        const totalAttempts = successes + failures;
+        const successRate = successes / totalAttempts
         const successPercent = (100 * successRate).toFixed(1) + '%'
-        console.log(`${operation}\t${totalAttempts} attempts\t${successPercent} success rate`)
+        console.log(`${operation}\t${totalAttempts} attempts\t${successPercent} success rate (${failures} failures)`)
     }
+
+    for (let operation in counts) {
+        const operationCounts = counts[operation];
+        const successes = operationCounts.success;
+        const failures = operationCounts.failure;
+        printLine(operation, successes, failures);
+    }
+
+    const totalSuccesses = Object.values(counts).reduce((acc, cur) => acc + cur.success, 0)
+    const totalFailures = Object.values(counts).reduce((acc, cur) => acc + cur.failure, 0)
+    printLine("total", totalSuccesses, totalFailures);
 };
 
 const oneWorker = async (delay) => {
