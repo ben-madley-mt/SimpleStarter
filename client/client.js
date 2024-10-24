@@ -12,7 +12,7 @@ class CardClient {
         this.url = url;
     }
 
-    async wrap_single_retry(f) {
+    async retry(f) {
         for (let i = 0; i < 5; i++) {
             try {
                 return await f()
@@ -24,7 +24,7 @@ class CardClient {
     }
 
     async createNewCard(title, body) {
-        const response = await this.wrap_single_retry(async () => await axios.post(`${this.url}/card`, {title: title, body: body}))
+        const response = await this.retry(async () => await axios.post(`${this.url}/card`, {title: title, body: body}))
         return response.data.id
     }
 
