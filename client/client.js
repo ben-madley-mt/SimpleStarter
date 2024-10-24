@@ -14,22 +14,18 @@ class CardClient {
 
     async wrap_single_retry(f) {
         for (let i = 0; i < 5; i++) {
-            let x = await f()
-            if (!!x) {
-                return x
+            try {
+                return await f()
+            } catch (e) {
+                await sleep(1000)
             }
-            await sleep(1000)
         }
         return false
     }
 
     async createNewCard(title, body) {
-        try {
-            const response = await axios.post(`${this.url}/card`, {title: title, body: body})
-            return response.data.id
-        } catch (e) {
-            return false
-        }
+        const response = await this.wrap_single_retry(async () => await axios.post(`${this.url}/card`, {title: title, body: body}))
+        return response.data.id
     }
 
     async updateCard(id, title, body) {
