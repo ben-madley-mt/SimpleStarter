@@ -1,4 +1,3 @@
-const {CardClient} = require("./LIVE/client/client");
 const { ArgumentParser } = require('argparse');
 const { version } = require('./package.json');
 
@@ -18,7 +17,14 @@ const counts = {
     'delete': { success: 0, failure: 0},
 }
 
+function refreshCardClientCode() {
+    delete require.cache[require.resolve("./LIVE/client/client")]
+    const {CardClient} = require("./LIVE/client/client");
+    return CardClient;
+}
+
 const doACard = async (delay) => {
+    const CardClient = refreshCardClientCode();
     const client = new CardClient()
 
     await randomSleep(delay)
