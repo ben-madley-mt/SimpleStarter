@@ -97,7 +97,7 @@ const parser = new ArgumentParser({
     description: 'Test your migration skills'
 });
 
-parser.add_argument('-w', '--workers', { help: 'number of concurrent workers to run', default: 10 });
+parser.add_argument('-w', '--workers', { help: 'number of concurrent workers to run', default: 5 });
 parser.add_argument('-d', '--delay', { help: 'max length of a delay between steps in seconds', default: 1 });
 
 const {workers, delay} = parser.parse_args()

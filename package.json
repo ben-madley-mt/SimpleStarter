@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run deploy-all && node_modules/.bin/nodemon --watch ./LIVE/server  ./LIVE/server/app.js",
-    "test": "npm run deploy-client && node ./test.js -w 10 -d 1",
+    "test": "npm run deploy-client && node ./test.js -w 5 -d 1",
     "deploy-all": "npm run deploy-server && npm run deploy-client",
     "deploy-server": "cp -r server LIVE/",
     "deploy-client": "cp -r client LIVE/"
