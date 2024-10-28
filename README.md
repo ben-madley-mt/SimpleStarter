@@ -18,7 +18,7 @@ This file will repeatedly call the server via the client, and then report stats 
 
 ## Using this repo
 
-Install with `npm install`, start the server in one terminal with `npm run start`, and start the test script with `npm run test` or `node_modules/.bin/nodemon --watch ./LIVE/client ./test.js -w <number of workers> -d <max delay>`.
+Install with `npm install`, start the server in one terminal with `npm run start`, and start the test script with `npm run test` or `node ./test.js -w <number of workers> -d <max delay>`.
 
 Now try and either refactor the code, or migrate the database, with as little downtime as possible. **Do not stop the server or the test.** Deploy new versions of the server with `npm run deploy-server`, and new versions of the client with `npm run deploy-client`. This will copy them into the `LIVE` server where the server and test script run from.
 
