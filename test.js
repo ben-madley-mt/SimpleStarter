@@ -98,7 +98,7 @@ const parser = new ArgumentParser({
 });
 
 parser.add_argument('-w', '--workers', { help: 'number of concurrent workers to run', default: 10 });
-parser.add_argument('-d', '--delay', { help: 'max length of a delay between steps in seconds', default: 4 });
+parser.add_argument('-d', '--delay', { help: 'max length of a delay between steps in seconds', default: 1 });
 
 const {workers, delay} = parser.parse_args()
 
