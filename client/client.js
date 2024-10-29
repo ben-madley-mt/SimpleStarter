@@ -25,7 +25,7 @@ class CardClient {
 
     async createNewCard(title, body) {
         const response = await this.retry(async () => await axios.post(`${this.url}/card`, {title: title, body: body}))
-        return response.data.id
+        return response.data ? response.data.id : undefined
     }
 
     async updateCard(id, title, body) {
@@ -33,7 +33,7 @@ class CardClient {
             title: title,
             body: body
         }))
-        return response.data.changes > 0
+        return response.data ? response.data.changes > 0 : undefined
     }
 
     async getCard(id) {
@@ -43,7 +43,7 @@ class CardClient {
 
     async deleteCard(id) {
         const response = await this.retry(async () => await axios.delete(`${this.url}/card/${id}`))
-        return response.data.changes > 0
+        return response.data ? response.data.changes > 0 : undefined
     }
 }
 
